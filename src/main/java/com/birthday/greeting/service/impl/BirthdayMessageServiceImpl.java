@@ -1,5 +1,6 @@
 package com.birthday.greeting.service.impl;
 
+import com.birthday.greeting.constant.Gender;
 import com.birthday.greeting.constant.MsgCode;
 import com.birthday.greeting.dao.UserInfoMapper;
 import com.birthday.greeting.dto.request.BirthdayMessageDTO;
@@ -29,12 +30,27 @@ public class BirthdayMessageServiceImpl implements BirthdayMessageService {
 
     @Override
     public List<BirthdayMessageVO> getBirthdayMessage(BirthdayMessageDTO request) {
+        //query users by inputting birthday
         List<UserInfo> users = userInfoMapper.findByBirthday(request.getBirthday());
         if (CollectionUtils.isEmpty(users)) {
             return new ArrayList<>();
         }
-        return users.stream().map(user ->
-                        new BirthdayMessageVO(MsgUtil.get(MsgCode.BIRTHDAY_SUBJECT), MsgUtil.get(MsgCode.BIRTHDAY_MESSAGE, user.getFirstName())))
-                .collect(Collectors.toList());
+        List<BirthdayMessageVO> results = new ArrayList<>();
+        //build message context...
+        users.forEach(u -> {
+            BirthdayMessageVO result = new BirthdayMessageVO();
+            result.setSubject(MsgUtil.get(MsgCode.BIRTHDAY_SUBJECT));
+            StringBuilder message = new StringBuilder(MsgUtil.get(MsgCode.BIRTHDAY_MESSAGE, u.getFirstName()));
+            if (Gender.MALE.getCode().equals(u.getGender())) {
+                message.append(MsgUtil.get(MsgCode.DISCOUNT_MESSAGE, "20%", "White Wine, iPhone X"));
+                result.setMessage(message.toString());
+            }
+            if (Gender.FEMALE.getCode().equals(u.getGender())) {
+                message.append(MsgUtil.get(MsgCode.DISCOUNT_MESSAGE, "50%", "Cosmetic, LV Handbags"));
+                result.setMessage(message.toString());
+            }
+            results.add(result);
+        });
+        return results;
     }
 }

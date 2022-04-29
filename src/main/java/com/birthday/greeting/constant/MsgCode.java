@@ -8,8 +8,21 @@ package com.birthday.greeting.constant;
  */
 public class MsgCode {
 
+    /**
+     * 生日祝賀標題
+     */
     public static final String BIRTHDAY_SUBJECT = "birthday.subject";
+
+    /**
+     * 生日祝賀語
+     */
     public static final String BIRTHDAY_MESSAGE = "birthday.message";
+
+    /**
+     * 折扣訊息
+     */
+    public static final String DISCOUNT_MESSAGE = "discount.message";
+
     private MsgCode() {
     }
 }

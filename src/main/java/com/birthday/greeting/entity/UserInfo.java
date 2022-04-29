@@ -1,6 +1,9 @@
-package com.birthday.greeting.po;
+package com.birthday.greeting.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
@@ -11,12 +14,15 @@ import java.time.LocalDate;
  * @since 2022/4/27 10:39 PM
  */
 @Data
+@Document
+@AllArgsConstructor
 public class UserInfo {
 
     /**
      * 流水號
      */
-    private Long id;
+    @Id
+    private String id;
 
     /**
      * 名
@@ -42,4 +48,5 @@ public class UserInfo {
      * 電子信箱
      */
     private String email;
+
 }

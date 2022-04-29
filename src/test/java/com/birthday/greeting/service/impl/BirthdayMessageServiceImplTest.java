@@ -32,9 +32,9 @@ class BirthdayMessageServiceImplTest {
     @Test
     void getBirthdayMessage() {
         BirthdayMessageDTO request = new BirthdayMessageDTO();
-        request.setBirthday("08-08");
+        request.setAge(49);
         List<BirthdayMessageVO> results = birthdayMessageService.getBirthdayMessage(request);
         assertNotNull(results);
-        assertEquals(2, results.size());
+        assertEquals(1, results.size());
     }
 }

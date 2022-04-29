@@ -16,10 +16,10 @@ import java.util.List;
 public interface UserInfoMapper {
 
     /**
-     * 依據生日查詢(月/日)
+     * 依據年紀查詢
      *
-     * @param birthday 生日
+     * @param ageInterval 年紀
      * @return 該天生日之User
      */
-    List<UserInfo> findByBirthday(@Param("birthday") String birthday);
+    List<UserInfo> findByBirthday(@Param("age_interval") String ageInterval);
 }

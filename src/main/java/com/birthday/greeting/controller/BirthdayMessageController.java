@@ -25,16 +25,16 @@ public class BirthdayMessageController {
     private final BirthdayMessageService birthdayMessageService;
 
     /**
-     * 依據生日返回該日生日人祝賀語
-     * 假設今天為8/8
+     * 向x歲以上使用者發送祝賀信
+     * 假設為49歲
      *
-     * @param request 生日
+     * @param request 年齡
      * @return 祝賀語VO
      */
     @GetMapping("/today")
     public ResResult<List<BirthdayMessageVO>> getTodayBirthdayMessage(BirthdayMessageDTO request) {
-        if (request.getBirthday() == null) {
-            request.setBirthday("08-08");
+        if (request.getAge() == null) {
+            request.setAge(49);
         }
         return ResResult.ok(birthdayMessageService.getBirthdayMessage(request));
     }

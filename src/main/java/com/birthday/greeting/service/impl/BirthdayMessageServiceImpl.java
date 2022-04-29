@@ -1,5 +1,6 @@
 package com.birthday.greeting.service.impl;
 
+import com.birthday.greeting.constant.CommonConstant;
 import com.birthday.greeting.constant.MsgCode;
 import com.birthday.greeting.dao.UserInfoMapper;
 import com.birthday.greeting.dto.request.BirthdayMessageDTO;
@@ -29,12 +30,14 @@ public class BirthdayMessageServiceImpl implements BirthdayMessageService {
 
     @Override
     public List<BirthdayMessageVO> getBirthdayMessage(BirthdayMessageDTO request) {
-        List<UserInfo> users = userInfoMapper.findByBirthday(request.getBirthday());
+        List<UserInfo> users = userInfoMapper.findByBirthday(request.getAge() + CommonConstant.SQL_INTERVAL_YEARS);
         if (CollectionUtils.isEmpty(users)) {
             return new ArrayList<>();
         }
-        return users.stream().map(user ->
-                        new BirthdayMessageVO(MsgUtil.get(MsgCode.BIRTHDAY_SUBJECT), MsgUtil.get(MsgCode.BIRTHDAY_MESSAGE, user.getFirstName())))
+        String imageFormat = "<img src=\"" + CommonConstant.BIRTHDAY_GREETING_IMAGE + "\"/>";
+        return users.stream()
+                .map(user -> new BirthdayMessageVO(MsgUtil.get(MsgCode.BIRTHDAY_SUBJECT)
+                        , MsgUtil.get(MsgCode.BIRTHDAY_MESSAGE, user.getFirstName()) + imageFormat))
                 .collect(Collectors.toList());
     }
 }

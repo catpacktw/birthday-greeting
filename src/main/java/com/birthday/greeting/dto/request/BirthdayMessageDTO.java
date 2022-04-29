@@ -16,8 +16,8 @@ import java.time.LocalDate;
 public class BirthdayMessageDTO {
 
     /**
-     * 生日
+     * 年紀
      */
-    private String birthday;
+    private Integer age;
 
 }

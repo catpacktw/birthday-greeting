@@ -10,6 +10,6 @@
         FROM
             user_info
         WHERE
-            to_char(birthday, 'MM-DD') = #{birthday}
+            birthday &lt; now() - CAST(#{age_interval} AS INTERVAL)
     </select>
 </mapper>

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * 通用返回封裝
  *
@@ -13,7 +15,8 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class ResResult<T> {
+@XmlRootElement
+public class Root<T> {
 
     /**
      * 返回碼
@@ -35,12 +38,12 @@ public class ResResult<T> {
      */
     private T data;
 
-    public static <T> ResResult<T> ok() {
+    public static <T> Root<T> ok() {
         return ok(null);
     }
 
-    public static <T> ResResult<T> ok(T data) {
-        return ResResult.<T>builder()
+    public static <T> Root<T> ok(T data) {
+        return Root.<T>builder()
                 .code(0)
                 .msg("success")
                 .data(data)

@@ -1,10 +1,11 @@
 package com.birthday.greeting.controller;
 
-import com.birthday.greeting.dto.ResResult;
+import com.birthday.greeting.dto.Root;
 import com.birthday.greeting.dto.request.BirthdayMessageDTO;
 import com.birthday.greeting.service.BirthdayMessageService;
 import com.birthday.greeting.vo.BirthdayMessageVO;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +32,11 @@ public class BirthdayMessageController {
      * @param request 生日
      * @return 祝賀語VO
      */
-    @GetMapping("/today")
-    public ResResult<List<BirthdayMessageVO>> getTodayBirthdayMessage(BirthdayMessageDTO request) {
+    @GetMapping(value = "/today", produces = MediaType.APPLICATION_XML_VALUE)
+    public Root<List<BirthdayMessageVO>> getTodayBirthdayMessage(BirthdayMessageDTO request) {
         if (request.getBirthday() == null) {
             request.setBirthday("08-08");
         }
-        return ResResult.ok(birthdayMessageService.getBirthdayMessage(request));
+        return Root.ok(birthdayMessageService.getBirthdayMessage(request));
     }
 }

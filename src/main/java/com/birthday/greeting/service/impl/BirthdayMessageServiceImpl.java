@@ -34,7 +34,7 @@ public class BirthdayMessageServiceImpl implements BirthdayMessageService {
             return new ArrayList<>();
         }
         return users.stream().map(user ->
-                        new BirthdayMessageVO(MsgUtil.get(MsgCode.BIRTHDAY_SUBJECT), MsgUtil.get(MsgCode.BIRTHDAY_MESSAGE, user.getFirstName())))
+                        new BirthdayMessageVO(MsgUtil.get(MsgCode.BIRTHDAY_SUBJECT), MsgUtil.get(MsgCode.BIRTHDAY_MESSAGE, user.getLastName(), user.getFirstName())))
                 .collect(Collectors.toList());
     }
 }
